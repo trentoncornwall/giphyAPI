@@ -6,16 +6,32 @@ const buttons = {
 
 	createButtons: function() {
 		$("#buttonHolder").empty();
-		let buttons = this.choices;
+		const buttons = this.choices;
 
-		//* creating individual buttons and appending it to #buttonHolder
 		for (let i = 0; i < buttons.length; i++) {
-			newButton = $(`<button id=${buttons[i]}>`)
-				.text(buttons[i])
-				.addClass("search");
-			$("#buttonHolder").prepend(newButton);
-		}
+			let endPoint = `https://api.giphy.com/v1/gifs/search?api_key=BMZLacTltGEXqTygiH3d5ZCOYjHKyI2b&q=${
+				buttons[i]
+			}&limit=10&offset=0&rating=PG-13&lang=en`;
+			$.ajax({
+				url: endPoint,
+				method: "GET"
+			}).then(function(response) {
+				let giphyObj = response.data[i];
+				let buttonImg = giphyObj.images.preview_gif.url;
+				let newDiv = $(`<div id=${buttons[i]}>`)
+					.addClass("button")
+					.css("background-image", `url(${buttonImg})`)
+					.text(buttons[i]);
 
+				// let imgText = $(`<div>`)
+				// 	.addClass("imgTxt")
+				// 	.text(buttons[i]);
+
+				// newDiv.append(imgText);
+
+				$("#buttonHolder").append(newDiv);
+			});
+		}
 		wait();
 	},
 
@@ -29,19 +45,24 @@ const buttons = {
 			//* response  contains 10 objects, parsing objects and creating gifs
 			for (let i = 0; i < response.data.length; i++) {
 				//* obtaining info
+
 				let giphyObj = response.data[i];
 				let title = giphyObj.title;
 				let rating = giphyObj.rating;
 				let animated = giphyObj.images.original.url;
 				let still = giphyObj.images.original_still.url;
 				//* assemble image
-				newImage = $(
-					`<img src=${still}
+				newImage = $("<div>")
+					.addClass("container")
+					.append(
+						$(
+							`<img src=${still}
 					        data-still=${still}
 					        data-animated=${animated}
 					        data-title=${title}
 					        data-rating=${rating}>`
-				);
+						)
+					);
 				$("#giphycontainer").append(newImage);
 			}
 			wait();
@@ -58,25 +79,31 @@ const buttons = {
 };
 
 function wait() {
-	$(`.search`).on(`click`, function(event) {
-		const term = $(this).text();
-		buttons.createGiphys(term);
+	$("#buttonHolder").on("click", ".button", function(event) {
+		buttons.createGiphys($(this).attr("id"));
 	});
-
 	$(`img`).on(`click`, function(event) {
 		buttons.animate($(this));
 	});
 
 	$("input").on("keyup", function(event) {
 		if (event.keyCode === 13) {
-			$("#buttonSubmit").click();
+			if ($("#newButton").val() === "") {
+				return false;
+			} else {
+				$("#buttonSubmit").click();
+			}
 		}
 	});
 }
 
 function submit() {
-	buttons.choices.push($("#newButton").val());
-	$("#newButton").val("");
-	buttons.createButtons();
+	if ($("#newButton").val() === "") {
+		return false;
+	} else {
+		buttons.choices.push($("#newButton").val());
+		$("#newButton").val("");
+		buttons.createButtons();
+	}
 }
 buttons.createButtons();
