@@ -4,27 +4,43 @@
 const buttons = {
 	choices: ["cats", "dogs"],
 
-	createButtons: function() {
-		$("#buttonHolder").empty();
+	createButtons: function () {
+		$("#choices").empty();
 		let buttons = this.choices;
 
-		//* creating individual buttons and appending it to #buttonHolder
+		//* creating individual buttons and appending it to #choices
 		for (let i = 0; i < buttons.length; i++) {
-			newButton = $(`<button id=${buttons[i]}>`)
-				.text(buttons[i])
-				.addClass("search");
-			$("#buttonHolder").prepend(newButton);
+			// newButton = $(`<button id=${buttons[i]}>`)
+			// 	.text(buttons[i])
+			// 	.addClass("search");
+			// $("#choices").prepend(newButton);
+			let term = buttons[i];
+			let endPoint = `https://api.giphy.com/v1/gifs/search?api_key=BMZLacTltGEXqTygiH3d5ZCOYjHKyI2b&q=${term}&limit=10&offset=0&rating=PG-13&lang=en`;
+			$.ajax({
+				url: endPoint,
+				method: "GET"
+			}).then(function (response) {
+				let termObj = response.data[i]
+				let termGif = termObj.images.preview_gif.url
+				let divBttn = $("<div class='search'>").attr("id", term)
+				let divImg = $("<div>")
+					.addClass("divImg")
+					.css("background-image", `url(${termGif})`);
+				divBttn.append(divImg);
+				$("#choices").append(divBttn)
+			})
+
 		}
 
 		wait();
 	},
 
-	createGiphys: function(x) {
+	createGiphys: function (x) {
 		let endPoint = `https://api.giphy.com/v1/gifs/search?api_key=BMZLacTltGEXqTygiH3d5ZCOYjHKyI2b&q=${x}&limit=10&offset=0&rating=PG-13&lang=en`;
 		$.ajax({
 			url: endPoint,
 			method: "GET"
-		}).then(function(response) {
+		}).then(function (response) {
 			$("#giphycontainer").empty();
 			//* response  contains 10 objects, parsing objects and creating gifs
 			for (let i = 0; i < response.data.length; i++) {
@@ -48,7 +64,7 @@ const buttons = {
 		});
 	},
 
-	animate: function(x) {
+	animate: function (x) {
 		if (x.attr("src") === x.attr("data-still")) {
 			$(x).attr("src", x.attr("data-animated"));
 		} else {
@@ -58,16 +74,16 @@ const buttons = {
 };
 
 function wait() {
-	$(`.search`).on(`click`, function(event) {
-		const term = $(this).text();
+	$(`#choices`).on(`click`, ".search", function (event) {
+		const term = $(this).attr("id");
 		buttons.createGiphys(term);
 	});
 
-	$(`img`).on(`click`, function(event) {
+	$(`img`).on(`click`, function (event) {
 		buttons.animate($(this));
 	});
 
-	$("input").on("keyup", function(event) {
+	$("input").on("keyup", function (event) {
 		if (event.keyCode === 13) {
 			$("#buttonSubmit").click();
 		}
