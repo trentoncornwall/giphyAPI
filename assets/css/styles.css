@@ -2,6 +2,7 @@
 
 body {
 	font-family: 'Montserrat', sans-serif;
+	background-color: rgb(20, 20, 20);
 	font-weight: bold;
 	font-size: 1.2em;
 	height: 100vh;
@@ -47,11 +48,38 @@ body {
 }
 
 #newButton {
-	grid-area: inputbox
+	color: white;
+	font-size: 18px;
+	position: relative;
+	grid-area: inputbox;
+	background: rgb(44, 25, 68);
+	border-radius: 15px;
+	border: 0;
+	border-bottom: 2px solid rgb(104, 16, 219);
+	border-top: 1px solid rgb(167, 99, 255);
+	padding: 9px;
+}
+
+#newButton:focus {
+	outline: none;
 }
 
 #buttonSubmit {
+	color: white;
+	width: 100%;
+	height: 100%;
+	max-height: 40px;
+	max-width: 40px;
+	border-radius: 15px;
+	border: 0;
+	background: rgb(44, 25, 68);
+	border-left: 3px solid rgb(167, 99, 255);
+	border-right: 3px solid rgb(104, 16, 219);
 	grid-area: button
+}
+
+#buttonSubit:focus {
+	outline: none;
 }
 
 .button {
@@ -90,8 +118,11 @@ body {
 
 .button:hover {
 	/* opacity: .3; */
-	font-size: 1.25em;
+	font-size: 1.2em;
 	height: 100%;
+	-webkit-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219 0.86);
+	-moz-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
+	box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
 }
 
 .blacklayer:hover {
@@ -101,10 +132,14 @@ body {
 .selected {
 	transition: .5s;
 	height: 100%;
-	font-size: 1.25em;
+	font-size: 1.3em;
 	height: 100%;
+	-webkit-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219 0.86);
+	-moz-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
+	box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
 }
 
 .selected .blacklayer {
 	opacity: .2;
+
 }
