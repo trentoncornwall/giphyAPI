@@ -48,6 +48,7 @@ body {
 }
 
 #newButton {
+	text-align: center;
 	color: white;
 	font-size: 18px;
 	position: relative;
@@ -120,7 +121,7 @@ body {
 	/* opacity: .3; */
 	font-size: 1.2em;
 	height: 100%;
-	-webkit-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219 0.86);
+	-webkit-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
 	-moz-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
 	box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
 }
@@ -134,9 +135,9 @@ body {
 	height: 100%;
 	font-size: 1.3em;
 	height: 100%;
-	-webkit-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219 0.86);
-	-moz-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
-	box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
+	-webkit-box-shadow: -1px 3px 8px 5px rgba(167, 99, 255, 0.86);
+	-moz-box-shadow: -1px 3px 8px 5px rgba(167, 99, 255, 0.86);
+	box-shadow: -1px 3px 8px 5px rgba(167, 99, 255, 0.86);
 }
 
 .selected .blacklayer {
