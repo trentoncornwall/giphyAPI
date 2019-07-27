@@ -2,7 +2,13 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  background-color: rgb(20, 20, 20);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgb(38, 24, 41) 49%,
+    rgb(0, 0, 0) 100%
+  );
   font-weight: bold;
   font-size: 1.2em;
   text-transform: capitalize;
