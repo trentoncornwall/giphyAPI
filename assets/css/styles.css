@@ -186,6 +186,23 @@ small {
   z-index: 10; /* stack 1st word on top */
 }
 
+img {
+  border-radius: 5px;
+  max-width: 500px;
+  min-width: 500px;
+}
+
+img.selectedimg {
+  -webkit-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
+  -moz-box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
+  box-shadow: -1px 3px 8px 5px rgba(104, 16, 219, 0.86);
+}
+img:hover {
+  -webkit-box-shadow: -1px 3px 8px 5px rgba(167, 99, 255, 0.86);
+  -moz-box-shadow: -1px 3px 8px 5px rgba(167, 99, 255, 0.86);
+  box-shadow: -1px 3px 8px 5px rgba(167, 99, 255, 0.86);
+}
+
 @media only screen and (max-width: 1090px) {
   body {
     grid-template-columns: 5% 90% 5%;

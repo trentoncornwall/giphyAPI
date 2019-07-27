@@ -85,7 +85,11 @@ $(document).ready(function () {
 		buttons.createGiphys(term);
 	});
 	$(`#giphycontainer`).on(`click`, "img", function () {
-		console.log('image clicked')
+		if ($(this).attr("class") === "selectedimg") {
+			$(this).removeClass("selectedimg")
+		} else {
+			$(this).addClass("selectedimg")
+		}
 		buttons.animate($(this));
 	});
 
