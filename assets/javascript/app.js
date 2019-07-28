@@ -1,7 +1,7 @@
 const buttons = {
-	choices: ["cats", "dogs"],
+	choices: ["neon", "synthwave"],
 
-	createButtons: function () {
+	createButtons: function() {
 		$("#buttonHolder").empty();
 		const buttons = this.choices;
 
@@ -12,20 +12,18 @@ const buttons = {
 			$.ajax({
 				url: endPoint,
 				method: "GET"
-			}).then(function (response) {
+			}).then(function(response) {
 				let giphyObj = response.data[0];
 				let buttonImg = giphyObj.images.preview_gif.url;
 				let newDiv = $(`<div id=${buttons[i]}>`)
 					.addClass("button")
-					.css("background-image", `url(${buttonImg})`)
-
+					.css("background-image", `url(${buttonImg})`);
 
 				let imgText = $(`<p>`)
 					.addClass("imgTxt")
 					.text(buttons[i]);
 
-				let blacklayer = $("<div>")
-					.addClass("blacklayer")
+				let blacklayer = $("<div>").addClass("blacklayer");
 
 				newDiv.append(imgText, blacklayer);
 
@@ -34,13 +32,13 @@ const buttons = {
 		}
 	},
 
-	createGiphys: function (x) {
-		$("#giphycontainer").empty()
+	createGiphys: function(x) {
+		$("#giphycontainer").empty();
 		let endPoint = `https://api.giphy.com/v1/gifs/search?api_key=BMZLacTltGEXqTygiH3d5ZCOYjHKyI2b&q=${x}&limit=10&offset=0&rating=PG-13&lang=en`;
 		$.ajax({
 			url: endPoint,
 			method: "GET"
-		}).then(function (response) {
+		}).then(function(response) {
 			//* response  contains 10 objects, parsing objects and creating gifs
 			for (let i = 0; i < response.data.length; i++) {
 				//* obtaining info
@@ -64,11 +62,10 @@ const buttons = {
 					);
 				$("#giphycontainer").append(newImage);
 			}
-
 		});
 	},
 
-	animate: function (x) {
+	animate: function(x) {
 		if (x.attr("src") === x.attr("data-still")) {
 			$(x).attr("src", x.attr("data-animated"));
 		} else {
@@ -77,23 +74,23 @@ const buttons = {
 	}
 };
 
-$(document).ready(function () {
-	$("#buttonHolder").on("click", ".button", function () {
-		$(".button").removeClass("selected")
-		$(this).addClass("selected")
-		let term = $(this).attr('id')
+$(document).ready(function() {
+	$("#buttonHolder").on("click", ".button", function() {
+		$(".button").removeClass("selected");
+		$(this).addClass("selected");
+		let term = $(this).attr("id");
 		buttons.createGiphys(term);
 	});
-	$(`#giphycontainer`).on(`click`, "img", function () {
+	$(`#giphycontainer`).on(`click`, "img", function() {
 		if ($(this).attr("class") === "selectedimg") {
-			$(this).removeClass("selectedimg")
+			$(this).removeClass("selectedimg");
 		} else {
-			$(this).addClass("selectedimg")
+			$(this).addClass("selectedimg");
 		}
 		buttons.animate($(this));
 	});
 
-	$("input").on("keyup", function (event) {
+	$("input").on("keyup", function(event) {
 		if (event.keyCode === 13) {
 			if ($("#newButton").val() === "") {
 				return false;
@@ -102,7 +99,7 @@ $(document).ready(function () {
 			}
 		}
 	});
-})
+});
 
 function submit() {
 	if ($("#newButton").val() === "") {
